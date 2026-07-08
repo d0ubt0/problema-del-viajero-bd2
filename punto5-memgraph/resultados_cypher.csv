@@ -1,0 +1,6 @@
+ciudades,tiempo_segundos,costo,ruta,estado,error
+4,0.0457,2593,"[""Bogotá"", ""Cali"", ""Medellín"", ""Barranquilla""]",OK,""
+6,0.0446,2777,"[""Bogotá"", ""Cali"", ""Medellín"", ""Barranquilla"", ""Cartagena"", ""Bucaramanga""]",OK,""
+8,0.1366,2909,"[""Bogotá"", ""Manizales"", ""Pereira"", ""Cali"", ""Medellín"", ""Barranquilla"", ""Cartagena"", ""Bucaramanga""]",OK,""
+10,7.9860,3136,"[""Bogotá"", ""Bucaramanga"", ""Cúcuta"", ""Santa Marta"", ""Barranquilla"", ""Cartagena"", ""Medellín"", ""Cali"", ""Pereira"", ""Manizales""]",OK,""
+12,641.4476,-,"-",ERROR,"Failed query: MATCH (n0:Ciudad {id: 0}) MATCH (n1:Ciudad) MATCH (n2:Ciudad) MATCH (n3:Ciudad) MATCH (n4:Ciudad) MATCH (n5:Ciudad) MATCH (n6:Ciudad) MATCH (n7:Ciudad) MATCH (n8:Ciudad) MATCH (n9:Ciudad"
