@@ -236,7 +236,7 @@ print(','.join(str(x) for x in data['subsets'][str($N)]))
     done
 
     echo "  Ejecutando TSP (MAGE held_karp)..."
-    for N in 4 6 8 10 12 14 16 18 20 22 24 26; do
+    for N in 4 6 8 10 12 14 16 18 20 22 24; do
         echo -n "    N=${N} (HK)... "
         CITY_IDS=$(python3 -c "
 import json

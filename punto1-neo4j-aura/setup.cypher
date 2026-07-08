@@ -1,5 +1,5 @@
 // ============================================
-// SETUP: Crear grafo completo de 26 ciudades
+// SETUP: Crear grafo completo de 24 ciudades
 // Ejecutar en Neo4j Browser o Cypher Shell
 // ============================================
 
@@ -35,8 +35,6 @@ MERGE (:Ciudad {id: 20, nombre: 'Riohacha'});
 MERGE (:Ciudad {id: 21, nombre: 'Arauca'});
 MERGE (:Ciudad {id: 22, nombre: 'Yopal'});
 MERGE (:Ciudad {id: 23, nombre: 'Florencia'});
-MERGE (:Ciudad {id: 24, nombre: 'Quibdó'});
-MERGE (:Ciudad {id: 25, nombre: 'Girardot'});
 
 // ---- Crear relaciones RUTA (grafo completo, ambas direcciones) ----
 // Bogotá <-> Medellín: 411 km
@@ -131,14 +129,6 @@ MERGE (b)-[:RUTA {distancia: 198}]->(a);
 MATCH (a:Ciudad {id: 0}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 384}]->(b)
 MERGE (b)-[:RUTA {distancia: 384}]->(a);
-// Bogotá <-> Quibdó: 307 km
-MATCH (a:Ciudad {id: 0}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 307}]->(b)
-MERGE (b)-[:RUTA {distancia: 307}]->(a);
-// Bogotá <-> Girardot: 93 km
-MATCH (a:Ciudad {id: 0}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 93}]->(b)
-MERGE (b)-[:RUTA {distancia: 93}]->(a);
 // Medellín <-> Cali: 421 km
 MATCH (a:Ciudad {id: 1}), (b:Ciudad {id: 2})
 MERGE (a)-[:RUTA {distancia: 421}]->(b)
@@ -227,14 +217,6 @@ MERGE (b)-[:RUTA {distancia: 366}]->(a);
 MATCH (a:Ciudad {id: 1}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 515}]->(b)
 MERGE (b)-[:RUTA {distancia: 515}]->(a);
-// Medellín <-> Quibdó: 134 km
-MATCH (a:Ciudad {id: 1}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 134}]->(b)
-MERGE (b)-[:RUTA {distancia: 134}]->(a);
-// Medellín <-> Girardot: 232 km
-MATCH (a:Ciudad {id: 1}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 232}]->(b)
-MERGE (b)-[:RUTA {distancia: 232}]->(a);
 // Cali <-> Barranquilla: 1098 km
 MATCH (a:Ciudad {id: 2}), (b:Ciudad {id: 3})
 MERGE (a)-[:RUTA {distancia: 1098}]->(b)
@@ -319,14 +301,6 @@ MERGE (b)-[:RUTA {distancia: 504}]->(a);
 MATCH (a:Ciudad {id: 2}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 229}]->(b)
 MERGE (b)-[:RUTA {distancia: 229}]->(a);
-// Cali <-> Quibdó: 250 km
-MATCH (a:Ciudad {id: 2}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 250}]->(b)
-MERGE (b)-[:RUTA {distancia: 250}]->(a);
-// Cali <-> Girardot: 214 km
-MATCH (a:Ciudad {id: 2}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 214}]->(b)
-MERGE (b)-[:RUTA {distancia: 214}]->(a);
 // Barranquilla <-> Cartagena: 102 km
 MATCH (a:Ciudad {id: 3}), (b:Ciudad {id: 4})
 MERGE (a)-[:RUTA {distancia: 102}]->(b)
@@ -407,14 +381,6 @@ MERGE (b)-[:RUTA {distancia: 679}]->(a);
 MATCH (a:Ciudad {id: 3}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 1043}]->(b)
 MERGE (b)-[:RUTA {distancia: 1043}]->(a);
-// Barranquilla <-> Quibdó: 621 km
-MATCH (a:Ciudad {id: 3}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 621}]->(b)
-MERGE (b)-[:RUTA {distancia: 621}]->(a);
-// Barranquilla <-> Girardot: 740 km
-MATCH (a:Ciudad {id: 3}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 740}]->(b)
-MERGE (b)-[:RUTA {distancia: 740}]->(a);
 // Cartagena <-> Bucaramanga: 669 km
 MATCH (a:Ciudad {id: 4}), (b:Ciudad {id: 5})
 MERGE (a)-[:RUTA {distancia: 669}]->(b)
@@ -491,14 +457,6 @@ MERGE (b)-[:RUTA {distancia: 658}]->(a);
 MATCH (a:Ciudad {id: 4}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 976}]->(b)
 MERGE (b)-[:RUTA {distancia: 976}]->(a);
-// Cartagena <-> Quibdó: 537 km
-MATCH (a:Ciudad {id: 4}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 537}]->(b)
-MERGE (b)-[:RUTA {distancia: 537}]->(a);
-// Cartagena <-> Girardot: 681 km
-MATCH (a:Ciudad {id: 4}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 681}]->(b)
-MERGE (b)-[:RUTA {distancia: 681}]->(a);
 // Bucaramanga <-> Pereira: 600 km
 MATCH (a:Ciudad {id: 5}), (b:Ciudad {id: 6})
 MERGE (a)-[:RUTA {distancia: 600}]->(b)
@@ -571,14 +529,6 @@ MERGE (b)-[:RUTA {distancia: 214}]->(a);
 MATCH (a:Ciudad {id: 5}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 672}]->(b)
 MERGE (b)-[:RUTA {distancia: 672}]->(a);
-// Bucaramanga <-> Quibdó: 422 km
-MATCH (a:Ciudad {id: 5}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 422}]->(b)
-MERGE (b)-[:RUTA {distancia: 422}]->(a);
-// Bucaramanga <-> Girardot: 365 km
-MATCH (a:Ciudad {id: 5}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 365}]->(b)
-MERGE (b)-[:RUTA {distancia: 365}]->(a);
 // Pereira <-> Manizales: 72 km
 MATCH (a:Ciudad {id: 6}), (b:Ciudad {id: 7})
 MERGE (a)-[:RUTA {distancia: 72}]->(b)
@@ -647,14 +597,6 @@ MERGE (b)-[:RUTA {distancia: 370}]->(a);
 MATCH (a:Ciudad {id: 6}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 356}]->(b)
 MERGE (b)-[:RUTA {distancia: 356}]->(a);
-// Pereira <-> Quibdó: 145 km
-MATCH (a:Ciudad {id: 6}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 145}]->(b)
-MERGE (b)-[:RUTA {distancia: 145}]->(a);
-// Pereira <-> Girardot: 114 km
-MATCH (a:Ciudad {id: 6}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 114}]->(b)
-MERGE (b)-[:RUTA {distancia: 114}]->(a);
 // Manizales <-> Santa Marta: 852 km
 MATCH (a:Ciudad {id: 7}), (b:Ciudad {id: 8})
 MERGE (a)-[:RUTA {distancia: 852}]->(b)
@@ -719,14 +661,6 @@ MERGE (b)-[:RUTA {distancia: 347}]->(a);
 MATCH (a:Ciudad {id: 7}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 384}]->(b)
 MERGE (b)-[:RUTA {distancia: 384}]->(a);
-// Manizales <-> Quibdó: 144 km
-MATCH (a:Ciudad {id: 7}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 144}]->(b)
-MERGE (b)-[:RUTA {distancia: 144}]->(a);
-// Manizales <-> Girardot: 116 km
-MATCH (a:Ciudad {id: 7}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 116}]->(b)
-MERGE (b)-[:RUTA {distancia: 116}]->(a);
 // Santa Marta <-> Cúcuta: 490 km
 MATCH (a:Ciudad {id: 8}), (b:Ciudad {id: 9})
 MERGE (a)-[:RUTA {distancia: 490}]->(b)
@@ -787,14 +721,6 @@ MERGE (b)-[:RUTA {distancia: 686}]->(a);
 MATCH (a:Ciudad {id: 8}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 1082}]->(b)
 MERGE (b)-[:RUTA {distancia: 1082}]->(a);
-// Santa Marta <-> Quibdó: 673 km
-MATCH (a:Ciudad {id: 8}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 673}]->(b)
-MERGE (b)-[:RUTA {distancia: 673}]->(a);
-// Santa Marta <-> Girardot: 774 km
-MATCH (a:Ciudad {id: 8}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 774}]->(b)
-MERGE (b)-[:RUTA {distancia: 774}]->(a);
 // Cúcuta <-> Ibagué: 440 km
 MATCH (a:Ciudad {id: 9}), (b:Ciudad {id: 10})
 MERGE (a)-[:RUTA {distancia: 440}]->(b)
@@ -851,14 +777,6 @@ MERGE (b)-[:RUTA {distancia: 284}]->(a);
 MATCH (a:Ciudad {id: 9}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 778}]->(b)
 MERGE (b)-[:RUTA {distancia: 778}]->(a);
-// Cúcuta <-> Quibdó: 519 km
-MATCH (a:Ciudad {id: 9}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 519}]->(b)
-MERGE (b)-[:RUTA {distancia: 519}]->(a);
-// Cúcuta <-> Girardot: 473 km
-MATCH (a:Ciudad {id: 9}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 473}]->(b)
-MERGE (b)-[:RUTA {distancia: 473}]->(a);
 // Ibagué <-> Villavicencio: 237 km
 MATCH (a:Ciudad {id: 10}), (b:Ciudad {id: 11})
 MERGE (a)-[:RUTA {distancia: 237}]->(b)
@@ -911,14 +829,6 @@ MERGE (b)-[:RUTA {distancia: 330}]->(a);
 MATCH (a:Ciudad {id: 10}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 317}]->(b)
 MERGE (b)-[:RUTA {distancia: 317}]->(a);
-// Ibagué <-> Quibdó: 211 km
-MATCH (a:Ciudad {id: 10}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 211}]->(b)
-MERGE (b)-[:RUTA {distancia: 211}]->(a);
-// Ibagué <-> Girardot: 50 km
-MATCH (a:Ciudad {id: 10}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 50}]->(b)
-MERGE (b)-[:RUTA {distancia: 50}]->(a);
 // Villavicencio <-> Pasto: 826 km
 MATCH (a:Ciudad {id: 11}), (b:Ciudad {id: 12})
 MERGE (a)-[:RUTA {distancia: 826}]->(b)
@@ -967,14 +877,6 @@ MERGE (b)-[:RUTA {distancia: 190}]->(a);
 MATCH (a:Ciudad {id: 11}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 357}]->(b)
 MERGE (b)-[:RUTA {distancia: 357}]->(a);
-// Villavicencio <-> Quibdó: 378 km
-MATCH (a:Ciudad {id: 11}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 378}]->(b)
-MERGE (b)-[:RUTA {distancia: 378}]->(a);
-// Villavicencio <-> Girardot: 132 km
-MATCH (a:Ciudad {id: 11}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 132}]->(b)
-MERGE (b)-[:RUTA {distancia: 132}]->(a);
 // Pasto <-> Neiva: 685 km
 MATCH (a:Ciudad {id: 12}), (b:Ciudad {id: 13})
 MERGE (a)-[:RUTA {distancia: 685}]->(b)
@@ -1019,14 +921,6 @@ MERGE (b)-[:RUTA {distancia: 710}]->(a);
 MATCH (a:Ciudad {id: 12}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 191}]->(b)
 MERGE (b)-[:RUTA {distancia: 191}]->(a);
-// Pasto <-> Quibdó: 503 km
-MATCH (a:Ciudad {id: 12}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 503}]->(b)
-MERGE (b)-[:RUTA {distancia: 503}]->(a);
-// Pasto <-> Girardot: 440 km
-MATCH (a:Ciudad {id: 12}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 440}]->(b)
-MERGE (b)-[:RUTA {distancia: 440}]->(a);
 // Neiva <-> Armenia: 427 km
 MATCH (a:Ciudad {id: 13}), (b:Ciudad {id: 14})
 MERGE (a)-[:RUTA {distancia: 427}]->(b)
@@ -1067,14 +961,6 @@ MERGE (b)-[:RUTA {distancia: 417}]->(a);
 MATCH (a:Ciudad {id: 13}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 150}]->(b)
 MERGE (b)-[:RUTA {distancia: 150}]->(a);
-// Neiva <-> Quibdó: 343 km
-MATCH (a:Ciudad {id: 13}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 343}]->(b)
-MERGE (b)-[:RUTA {distancia: 343}]->(a);
-// Neiva <-> Girardot: 162 km
-MATCH (a:Ciudad {id: 13}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 162}]->(b)
-MERGE (b)-[:RUTA {distancia: 162}]->(a);
 // Armenia <-> Montería: 528 km
 MATCH (a:Ciudad {id: 14}), (b:Ciudad {id: 15})
 MERGE (a)-[:RUTA {distancia: 528}]->(b)
@@ -1111,14 +997,6 @@ MERGE (b)-[:RUTA {distancia: 375}]->(a);
 MATCH (a:Ciudad {id: 14}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 325}]->(b)
 MERGE (b)-[:RUTA {distancia: 325}]->(a);
-// Armenia <-> Quibdó: 168 km
-MATCH (a:Ciudad {id: 14}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 168}]->(b)
-MERGE (b)-[:RUTA {distancia: 168}]->(a);
-// Armenia <-> Girardot: 101 km
-MATCH (a:Ciudad {id: 14}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 101}]->(b)
-MERGE (b)-[:RUTA {distancia: 101}]->(a);
 // Montería <-> Tunja: 645 km
 MATCH (a:Ciudad {id: 15}), (b:Ciudad {id: 16})
 MERGE (a)-[:RUTA {distancia: 645}]->(b)
@@ -1151,14 +1029,6 @@ MERGE (b)-[:RUTA {distancia: 541}]->(a);
 MATCH (a:Ciudad {id: 15}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 795}]->(b)
 MERGE (b)-[:RUTA {distancia: 795}]->(a);
-// Montería <-> Quibdó: 351 km
-MATCH (a:Ciudad {id: 15}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 351}]->(b)
-MERGE (b)-[:RUTA {distancia: 351}]->(a);
-// Montería <-> Girardot: 509 km
-MATCH (a:Ciudad {id: 15}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 509}]->(b)
-MERGE (b)-[:RUTA {distancia: 509}]->(a);
 // Tunja <-> Popayán: 743 km
 MATCH (a:Ciudad {id: 16}), (b:Ciudad {id: 17})
 MERGE (a)-[:RUTA {distancia: 743}]->(b)
@@ -1187,14 +1057,6 @@ MERGE (b)-[:RUTA {distancia: 110}]->(a);
 MATCH (a:Ciudad {id: 16}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 502}]->(b)
 MERGE (b)-[:RUTA {distancia: 502}]->(a);
-// Tunja <-> Quibdó: 365 km
-MATCH (a:Ciudad {id: 16}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 365}]->(b)
-MERGE (b)-[:RUTA {distancia: 365}]->(a);
-// Tunja <-> Girardot: 210 km
-MATCH (a:Ciudad {id: 16}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 210}]->(b)
-MERGE (b)-[:RUTA {distancia: 210}]->(a);
 // Popayán <-> Sincelejo: 1015 km
 MATCH (a:Ciudad {id: 17}), (b:Ciudad {id: 18})
 MERGE (a)-[:RUTA {distancia: 1015}]->(b)
@@ -1219,14 +1081,6 @@ MERGE (b)-[:RUTA {distancia: 567}]->(a);
 MATCH (a:Ciudad {id: 17}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 144}]->(b)
 MERGE (b)-[:RUTA {distancia: 144}]->(a);
-// Popayán <-> Quibdó: 362 km
-MATCH (a:Ciudad {id: 17}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 362}]->(b)
-MERGE (b)-[:RUTA {distancia: 362}]->(a);
-// Popayán <-> Girardot: 288 km
-MATCH (a:Ciudad {id: 17}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 288}]->(b)
-MERGE (b)-[:RUTA {distancia: 288}]->(a);
 // Sincelejo <-> Valledupar: 469 km
 MATCH (a:Ciudad {id: 18}), (b:Ciudad {id: 19})
 MERGE (a)-[:RUTA {distancia: 469}]->(b)
@@ -1247,14 +1101,6 @@ MERGE (b)-[:RUTA {distancia: 551}]->(a);
 MATCH (a:Ciudad {id: 18}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 855}]->(b)
 MERGE (b)-[:RUTA {distancia: 855}]->(a);
-// Sincelejo <-> Quibdó: 425 km
-MATCH (a:Ciudad {id: 18}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 425}]->(b)
-MERGE (b)-[:RUTA {distancia: 425}]->(a);
-// Sincelejo <-> Girardot: 560 km
-MATCH (a:Ciudad {id: 18}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 560}]->(b)
-MERGE (b)-[:RUTA {distancia: 560}]->(a);
 // Valledupar <-> Riohacha: 124 km
 MATCH (a:Ciudad {id: 19}), (b:Ciudad {id: 20})
 MERGE (a)-[:RUTA {distancia: 124}]->(b)
@@ -1271,14 +1117,6 @@ MERGE (b)-[:RUTA {distancia: 579}]->(a);
 MATCH (a:Ciudad {id: 19}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 1019}]->(b)
 MERGE (b)-[:RUTA {distancia: 1019}]->(a);
-// Valledupar <-> Quibdó: 651 km
-MATCH (a:Ciudad {id: 19}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 651}]->(b)
-MERGE (b)-[:RUTA {distancia: 651}]->(a);
-// Valledupar <-> Girardot: 707 km
-MATCH (a:Ciudad {id: 19}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 707}]->(b)
-MERGE (b)-[:RUTA {distancia: 707}]->(a);
 // Riohacha <-> Arauca: 549 km
 MATCH (a:Ciudad {id: 20}), (b:Ciudad {id: 21})
 MERGE (a)-[:RUTA {distancia: 549}]->(b)
@@ -1291,14 +1129,6 @@ MERGE (b)-[:RUTA {distancia: 692}]->(a);
 MATCH (a:Ciudad {id: 20}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 1144}]->(b)
 MERGE (b)-[:RUTA {distancia: 1144}]->(a);
-// Riohacha <-> Quibdó: 770 km
-MATCH (a:Ciudad {id: 20}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 770}]->(b)
-MERGE (b)-[:RUTA {distancia: 770}]->(a);
-// Riohacha <-> Girardot: 832 km
-MATCH (a:Ciudad {id: 20}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 832}]->(b)
-MERGE (b)-[:RUTA {distancia: 832}]->(a);
 // Arauca <-> Yopal: 265 km
 MATCH (a:Ciudad {id: 21}), (b:Ciudad {id: 22})
 MERGE (a)-[:RUTA {distancia: 265}]->(b)
@@ -1307,38 +1137,10 @@ MERGE (b)-[:RUTA {distancia: 265}]->(a);
 MATCH (a:Ciudad {id: 21}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 812}]->(b)
 MERGE (b)-[:RUTA {distancia: 812}]->(a);
-// Arauca <-> Quibdó: 670 km
-MATCH (a:Ciudad {id: 21}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 670}]->(b)
-MERGE (b)-[:RUTA {distancia: 670}]->(a);
-// Arauca <-> Girardot: 544 km
-MATCH (a:Ciudad {id: 21}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 544}]->(b)
-MERGE (b)-[:RUTA {distancia: 544}]->(a);
 // Yopal <-> Florencia: 546 km
 MATCH (a:Ciudad {id: 22}), (b:Ciudad {id: 23})
 MERGE (a)-[:RUTA {distancia: 546}]->(b)
 MERGE (b)-[:RUTA {distancia: 546}]->(a);
-// Yopal <-> Quibdó: 473 km
-MATCH (a:Ciudad {id: 22}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 473}]->(b)
-MERGE (b)-[:RUTA {distancia: 473}]->(a);
-// Yopal <-> Girardot: 290 km
-MATCH (a:Ciudad {id: 22}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 290}]->(b)
-MERGE (b)-[:RUTA {distancia: 290}]->(a);
-// Florencia <-> Quibdó: 468 km
-MATCH (a:Ciudad {id: 23}), (b:Ciudad {id: 24})
-MERGE (a)-[:RUTA {distancia: 468}]->(b)
-MERGE (b)-[:RUTA {distancia: 468}]->(a);
-// Florencia <-> Girardot: 312 km
-MATCH (a:Ciudad {id: 23}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 312}]->(b)
-MERGE (b)-[:RUTA {distancia: 312}]->(a);
-// Quibdó <-> Girardot: 257 km
-MATCH (a:Ciudad {id: 24}), (b:Ciudad {id: 25})
-MERGE (a)-[:RUTA {distancia: 257}]->(b)
-MERGE (b)-[:RUTA {distancia: 257}]->(a);
 
 // Verificar: contar nodos y relaciones
 MATCH (c:Ciudad) RETURN count(c) AS ciudades;

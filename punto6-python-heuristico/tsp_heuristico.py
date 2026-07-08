@@ -49,7 +49,7 @@ def tour_cost(tour, dist):
 # Held-Karp (optimal, for comparison)
 # =============================================================================
 def held_karp(dist, n):
-    if n > 26:
+    if n > 24:
         return None, float("inf")
     INF = float("inf")
     full_mask = (1 << n) - 1
@@ -364,7 +364,7 @@ def run_heuristic(func, dist, n, *args, **kwargs):
 
 
 def run_benchmarks(dist_full, nombres, subsets, coords):
-    sizes = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26]
+    sizes = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24]
     all_results = []
 
     print("=" * 110)
@@ -387,7 +387,7 @@ def run_benchmarks(dist_full, nombres, subsets, coords):
 
         optimal_cost = None
         optimal_time = None
-        if size <= 26:
+        if size <= 24:
             try:
                 t0 = time.perf_counter()
                 hk_route, hk_cost = held_karp(sub_dist, size)
