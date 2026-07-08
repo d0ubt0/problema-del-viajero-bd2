@@ -1,105 +1,297 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bash
+set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CONTAINER_NAME="memgraph-tsp"
-BOLT_PORT=7687
-RESULTS_FILE="$SCRIPT_DIR/results.txt"
+TIMEOUT_SECS=3600
 
-echo "=== Punto 5: MemGraph TSP ===" > "$RESULTS_FILE"
-echo "Fecha: $(date)" >> "$RESULTS_FILE"
-echo "" >> "$RESULTS_FILE"
+RES_N=()
+RES_T=()
+RES_C=()
+RES_R=()
+RES_E=()
+RES_ERR=()
 
-echo "[1/6] Levantando contenedor MemGraph..."
-docker compose -f "$SCRIPT_DIR/docker-compose.yml" up -d --build
+add_result() {
+    RES_N+=("$1"); RES_T+=("$2"); RES_C+=("$3")
+    RES_R+=("$4"); RES_E+=("$5"); RES_ERR+=("$6")
+}
 
-echo "[2/6] Esperando a que MemGraph esté listo..."
-MAX_RETRIES=30
-RETRY=0
-while [ $RETRY -lt $MAX_RETRIES ]; do
-    if docker exec "$CONTAINER_NAME" mgconsole --no-history -c "RETURN 1;" > /dev/null 2>&1; then
-        echo "MemGraph está listo."
-        break
+reset_results() {
+    RES_N=(); RES_T=(); RES_C=(); RES_R=(); RES_E=(); RES_ERR=()
+}
+
+print_summary() {
+    local title="$1"
+    echo ""
+    echo "================================================================"
+    echo " TABLA RESUMEN - $title"
+    echo "================================================================"
+    printf "%-10s | %-12s | %-8s | %s\n" "Ciudades" "Tiempo(s)" "Costo" "Estado"
+    echo "----------------------------------------------------------------"
+    for i in "${!RES_N[@]}"; do
+        if [ "${RES_E[$i]}" = "ERROR" ]; then
+            printf "%-10s | %-12s | %-8s | %s\n" "${RES_N[$i]}" "ERROR" "-" "${RES_ERR[$i]}"
+        else
+            printf "%-10s | %-12s | %-8s | %s\n" "${RES_N[$i]}" "${RES_T[$i]}" "${RES_C[$i]}" "${RES_E[$i]}"
+        fi
+    done
+}
+
+export_csv() {
+    local csv_file="$1"
+    echo "ciudades,tiempo_segundos,costo,ruta,estado,error" > "$csv_file"
+    for i in "${!RES_N[@]}"; do
+        echo "${RES_N[$i]},${RES_T[$i]},${RES_C[$i]},\"${RES_R[$i]//\"/\"\"}\",${RES_E[$i]},\"${RES_ERR[$i]//\"/\"\"}\"" >> "$csv_file"
+    done
+    echo "Resultados exportados a: $csv_file"
+}
+
+parse_mgconsole_result() {
+    local result="$1"
+    local costo="" ruta="" data_line=""
+
+    data_line=$(echo "$result" | grep -E '^\| *[0-9]' | tail -1)
+    if [ -n "$data_line" ]; then
+        costo=$(echo "$data_line" | awk -F'|' '{gsub(/^[ \t]+|[ \t]+$/,"",$2); print $2}')
+        ruta=$(echo "$data_line" | awk -F'|' '{gsub(/^[ \t]+|[ \t]+$/,"",$3); print $3}')
     fi
-    RETRY=$((RETRY + 1))
-    echo "  Intento $RETRY/$MAX_RETRIES..."
-    sleep 2
-done
 
-if [ $RETRY -eq $MAX_RETRIES ]; then
-    echo "ERROR: MemGraph no respondió a tiempo."
-    docker compose -f "$SCRIPT_DIR/docker-compose.yml" logs
-    docker compose -f "$SCRIPT_DIR/docker-compose.yml" down
-    exit 1
-fi
+    if [ -z "$costo" ]; then
+        data_line=$(echo "$result" | grep -E '^\s*[0-9]+\s*\|' | tail -1)
+        if [ -n "$data_line" ]; then
+            costo=$(echo "$data_line" | awk -F'|' '{gsub(/^[ \t]+|[ \t]+$/,"",$1); print $1}')
+            ruta=$(echo "$data_line" | awk -F'|' '{gsub(/^[ \t]+|[ \t]+$/,"",$2); print $2}')
+        fi
+    fi
 
-echo "[3/6] Ejecutando setup.cypher..."
-docker exec -i "$CONTAINER_NAME" mgconsole --no-history < "$SCRIPT_DIR/setup.cypher"
-echo "Grafo cargado correctamente."
+    if [ -z "$costo" ] || [ -z "$ruta" ]; then
+        echo "ERROR|Sin resultados|"
+        return
+    fi
+    echo "OK|$costo|$ruta"
+}
 
-echo "[4/6] Verificando datos..."
-docker exec "$CONTAINER_NAME" mgconsole --no-history -c "MATCH (c:Ciudad) RETURN count(c) AS ciudades;"
-docker exec "$CONTAINER_NAME" mgconsole --no-history -c "MATCH ()-[r:RUTA]->() RETURN count(r) AS rutas;"
-
-echo "[5/6] Ejecutando consultas TSP (fuerza bruta Cypher)..."
-echo "" >> "$RESULTS_FILE"
-echo "--- Resultados TSP con MemGraph (fuerza bruta Cypher) ---" >> "$RESULTS_FILE"
-
-for N in 4 6 8 10 12 14 16 18 20; do
-    echo "  Generando y ejecutando TSP para $N ciudades..."
-    python3 "$SCRIPT_DIR/generate_tsp.py" "$N" > /tmp/tsp_query.cypher
-
-    START_TIME=$(date +%s%N)
-    RESULT=$(docker exec -i "$CONTAINER_NAME" mgconsole --no-history < /tmp/tsp_query.cypher 2>&1)
-    END_TIME=$(date +%s%N)
-    ELAPSED=$(( (END_TIME - START_TIME) / 1000000 ))
-
-    echo "    Tiempo: ${ELAPSED}ms"
-    echo "    Resultado: $RESULT"
-
-    echo "TSP $N ciudades | Tiempo: ${ELAPSED}ms" >> "$RESULTS_FILE"
-    echo "  $RESULT" >> "$RESULTS_FILE"
-    echo "" >> "$RESULTS_FILE"
-done
-
-echo "[6/6] Probando módulo MAGE (tsp_mage.py)..."
-echo "--- Resultados TSP con módulo MAGE ---" >> "$RESULTS_FILE"
-
-for N in 4 6 8 10 12 14 16 18 20; do
-    CITY_IDS=$(python3 -c "
+get_city_ids() {
+    local n="$1"
+    python3 -c "
 import json
 with open('$SCRIPT_DIR/../shared/ciudades.json') as f:
     data = json.load(f)
-print(','.join(str(x) for x in data['subsets']['$N']))
-")
+key = str($n)
+if key not in data['subsets']:
+    exit(1)
+print(','.join(str(x) for x in data['subsets'][key]))
+" 2>&1
+}
 
-    echo "  MAGE brute_force para $N ciudades..."
-    START_TIME=$(date +%s%N)
-    RESULT=$(docker exec "$CONTAINER_NAME" mgconsole --no-history -c "CALL tsp_mage.brute_force([$CITY_IDS]) YIELD distancia_total, ruta;" 2>&1) || true
-    END_TIME=$(date +%s%N)
-    ELAPSED=$(( (END_TIME - START_TIME) / 1000000 ))
-    echo "    Tiempo: ${ELAPSED}ms"
-    echo "MAGE brute_force $N ciudades | Tiempo: ${ELAPSED}ms" >> "$RESULTS_FILE"
-    echo "  $RESULT" >> "$RESULTS_FILE"
-    echo "" >> "$RESULTS_FILE"
+cleanup() {
+    echo ""
+    echo "Deteniendo contenedor..."
+    docker compose -f "$SCRIPT_DIR/docker-compose.yml" down 2>/dev/null
+}
+trap cleanup EXIT
 
-    echo "  MAGE held_karp para $N ciudades..."
-    START_TIME=$(date +%s%N)
-    RESULT=$(docker exec "$CONTAINER_NAME" mgconsole --no-history -c "CALL tsp_mage.held_karp([$CITY_IDS]) YIELD distancia_total, ruta;" 2>&1) || true
-    END_TIME=$(date +%s%N)
-    ELAPSED=$(( (END_TIME - START_TIME) / 1000000 ))
-    echo "    Tiempo: ${ELAPSED}ms"
-    echo "MAGE held_karp $N ciudades | Tiempo: ${ELAPSED}ms" >> "$RESULTS_FILE"
-    echo "  $RESULT" >> "$RESULTS_FILE"
-    echo "" >> "$RESULTS_FILE"
+echo "[1/5] Levantando contenedor MemGraph..."
+docker compose -f "$SCRIPT_DIR/docker-compose.yml" up -d --build
+
+echo "[2/5] Esperando que MemGraph este listo..."
+for i in $(seq 1 30); do
+    if docker exec "$CONTAINER_NAME" mgconsole --no-history -c "RETURN 1;" > /dev/null 2>&1; then
+        echo "MemGraph listo despues de $((i*2))s"
+        break
+    fi
+    if [ "$i" -eq 30 ]; then
+        echo "ERROR: MemGraph no respondio en 60s"
+        exit 1
+    fi
+    sleep 2
 done
 
-echo "" >> "$RESULTS_FILE"
-echo "=== Ejecución completada ===" >> "$RESULTS_FILE"
+echo "[3/5] Cargando grafo (setup.cypher)..."
+docker exec -i "$CONTAINER_NAME" mgconsole --no-history < "$SCRIPT_DIR/setup.cypher"
+echo "Grafo cargado."
+
+# =========================================================================
+# Bateria 1: Cypher Brute Force
+# =========================================================================
+echo ""
+echo "================================================================"
+echo "[4/5] Bateria 1: Cypher Brute Force"
+echo "================================================================"
+
+reset_results
+N=4
+STOP=false
+
+while [ "$STOP" = false ]; do
+    echo "--- TSP ${N} ciudades ---"
+
+    QUERY=$(python3 "$SCRIPT_DIR/generate_tsp.py" "$N" 2>&1)
+    if [ $? -ne 0 ]; then
+        add_result "$N" "ERROR" "-" "-" "ERROR" "Error generando query"
+        STOP=true
+        break
+    fi
+
+    START_TIME=$(date +%s.%N)
+    RESULT=$(echo "$QUERY" | timeout "$TIMEOUT_SECS" docker exec -i "$CONTAINER_NAME" mgconsole --no-history 2>&1)
+    RC=$?
+    END_TIME=$(date +%s.%N)
+    ELAPSED=$(awk "BEGIN {printf \"%.4f\", $END_TIME - $START_TIME}")
+
+    if [ $RC -eq 124 ]; then
+        add_result "$N" "$ELAPSED" "-" "-" "ERROR" "Timeout (>${TIMEOUT_SECS}s)"
+        echo "  Tiempo: ${ELAPSED}s | Estado: ERROR - Timeout"
+        STOP=true
+    elif [ $RC -ne 0 ]; then
+        ERR_MSG=$(echo "$RESULT" | tr '\n' ' ' | head -c 200)
+        add_result "$N" "$ELAPSED" "-" "-" "ERROR" "$ERR_MSG"
+        echo "  Tiempo: ${ELAPSED}s | Estado: ERROR"
+        STOP=true
+    else
+        PARSED=$(parse_mgconsole_result "$RESULT")
+        STATUS=$(echo "$PARSED" | cut -d'|' -f1)
+        COSTO=$(echo "$PARSED" | cut -d'|' -f2)
+        RUTA=$(echo "$PARSED" | cut -d'|' -f3)
+        if [ "$STATUS" = "ERROR" ]; then
+            add_result "$N" "$ELAPSED" "-" "-" "ERROR" "$COSTO"
+            echo "  Tiempo: ${ELAPSED}s | Estado: ERROR - $COSTO"
+            STOP=true
+        else
+            add_result "$N" "$ELAPSED" "$COSTO" "$RUTA" "OK" ""
+            echo "  Ciudades: $N | Tiempo: ${ELAPSED}s | Costo: $COSTO | Ruta: $RUTA | Estado: OK"
+        fi
+    fi
+
+    N=$((N + 2))
+done
+
+print_summary "Punto 5: MemGraph - Cypher Brute Force"
+export_csv "${SCRIPT_DIR}/resultados_cypher.csv"
+
+# =========================================================================
+# Bateria 2: MAGE brute_force
+# =========================================================================
+echo ""
+echo "================================================================"
+echo "[5/5] Bateria 2: MAGE brute_force"
+echo "================================================================"
+
+reset_results
+N=4
+STOP=false
+
+while [ "$STOP" = false ]; do
+    echo "--- TSP ${N} ciudades ---"
+
+    CITY_IDS=$(get_city_ids "$N")
+    if [ $? -ne 0 ]; then
+        add_result "$N" "ERROR" "-" "-" "ERROR" "No hay subset para N=$N"
+        STOP=true
+        break
+    fi
+
+    MAGE_QUERY="CALL tsp_mage.brute_force([${CITY_IDS}]) YIELD distancia_total, ruta;"
+
+    START_TIME=$(date +%s.%N)
+    RESULT=$(timeout "$TIMEOUT_SECS" docker exec "$CONTAINER_NAME" mgconsole --no-history -c "$MAGE_QUERY" 2>&1)
+    RC=$?
+    END_TIME=$(date +%s.%N)
+    ELAPSED=$(awk "BEGIN {printf \"%.4f\", $END_TIME - $START_TIME}")
+
+    if [ $RC -eq 124 ]; then
+        add_result "$N" "$ELAPSED" "-" "-" "ERROR" "Timeout (>${TIMEOUT_SECS}s)"
+        echo "  Tiempo: ${ELAPSED}s | Estado: ERROR - Timeout"
+        STOP=true
+    elif [ $RC -ne 0 ]; then
+        ERR_MSG=$(echo "$RESULT" | tr '\n' ' ' | head -c 200)
+        add_result "$N" "$ELAPSED" "-" "-" "ERROR" "$ERR_MSG"
+        echo "  Tiempo: ${ELAPSED}s | Estado: ERROR"
+        STOP=true
+    else
+        PARSED=$(parse_mgconsole_result "$RESULT")
+        STATUS=$(echo "$PARSED" | cut -d'|' -f1)
+        COSTO=$(echo "$PARSED" | cut -d'|' -f2)
+        RUTA=$(echo "$PARSED" | cut -d'|' -f3)
+        if [ "$STATUS" = "ERROR" ]; then
+            add_result "$N" "$ELAPSED" "-" "-" "ERROR" "$COSTO"
+            echo "  Tiempo: ${ELAPSED}s | Estado: ERROR - $COSTO"
+            STOP=true
+        else
+            add_result "$N" "$ELAPSED" "$COSTO" "$RUTA" "OK" ""
+            echo "  Ciudades: $N | Tiempo: ${ELAPSED}s | Costo: $COSTO | Ruta: $RUTA | Estado: OK"
+        fi
+    fi
+
+    N=$((N + 2))
+done
+
+print_summary "Punto 5: MemGraph - MAGE brute_force"
+export_csv "${SCRIPT_DIR}/resultados_mage_bf.csv"
+
+# =========================================================================
+# Bateria 3: MAGE held_karp
+# =========================================================================
+echo ""
+echo "================================================================"
+echo "Bateria 3: MAGE held_karp"
+echo "================================================================"
+
+reset_results
+N=4
+STOP=false
+
+while [ "$STOP" = false ]; do
+    echo "--- TSP ${N} ciudades ---"
+
+    CITY_IDS=$(get_city_ids "$N")
+    if [ $? -ne 0 ]; then
+        add_result "$N" "ERROR" "-" "-" "ERROR" "No hay subset para N=$N"
+        STOP=true
+        break
+    fi
+
+    MAGE_QUERY="CALL tsp_mage.held_karp([${CITY_IDS}]) YIELD distancia_total, ruta;"
+
+    START_TIME=$(date +%s.%N)
+    RESULT=$(timeout "$TIMEOUT_SECS" docker exec "$CONTAINER_NAME" mgconsole --no-history -c "$MAGE_QUERY" 2>&1)
+    RC=$?
+    END_TIME=$(date +%s.%N)
+    ELAPSED=$(awk "BEGIN {printf \"%.4f\", $END_TIME - $START_TIME}")
+
+    if [ $RC -eq 124 ]; then
+        add_result "$N" "$ELAPSED" "-" "-" "ERROR" "Timeout (>${TIMEOUT_SECS}s)"
+        echo "  Tiempo: ${ELAPSED}s | Estado: ERROR - Timeout"
+        STOP=true
+    elif [ $RC -ne 0 ]; then
+        ERR_MSG=$(echo "$RESULT" | tr '\n' ' ' | head -c 200)
+        add_result "$N" "$ELAPSED" "-" "-" "ERROR" "$ERR_MSG"
+        echo "  Tiempo: ${ELAPSED}s | Estado: ERROR"
+        STOP=true
+    else
+        PARSED=$(parse_mgconsole_result "$RESULT")
+        STATUS=$(echo "$PARSED" | cut -d'|' -f1)
+        COSTO=$(echo "$PARSED" | cut -d'|' -f2)
+        RUTA=$(echo "$PARSED" | cut -d'|' -f3)
+        if [ "$STATUS" = "ERROR" ]; then
+            add_result "$N" "$ELAPSED" "-" "-" "ERROR" "$COSTO"
+            echo "  Tiempo: ${ELAPSED}s | Estado: ERROR - $COSTO"
+            STOP=true
+        else
+            add_result "$N" "$ELAPSED" "$COSTO" "$RUTA" "OK" ""
+            echo "  Ciudades: $N | Tiempo: ${ELAPSED}s | Costo: $COSTO | Ruta: $RUTA | Estado: OK"
+        fi
+    fi
+
+    N=$((N + 2))
+done
+
+print_summary "Punto 5: MemGraph - MAGE held_karp"
+export_csv "${SCRIPT_DIR}/resultados_mage_hk.csv"
 
 echo ""
-echo "=== Resultados guardados en $RESULTS_FILE ==="
-cat "$RESULTS_FILE"
-
-echo "Deteniendo contenedor..."
-docker compose -f "$SCRIPT_DIR/docker-compose.yml" down
+echo "================================================================"
+echo "Todas las baterias completadas."
+echo "Limite practico alcanzado: ${RES_N[-1]} ciudades"
+echo "================================================================"

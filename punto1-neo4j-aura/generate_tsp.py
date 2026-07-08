@@ -36,7 +36,7 @@ def generate_tsp(n):
     lines.append("MATCH " + ",\n      ".join(match_edges))
 
     dist_sum = " + ".join(f"r{i}.distancia" for i in range(n))
-    ruta_list = ", ".join(f"n{i}.nombre" for i in range(n)) + ", n0.nombre"
+    ruta_list = ", ".join(f"n{i}.nombre" for i in range(n))
     lines.append(f"RETURN {dist_sum} AS distanciaTotal,")
     lines.append(f"       [{ruta_list}] AS ruta")
     lines.append("ORDER BY distanciaTotal ASC")

@@ -210,15 +210,18 @@ def euler_tour(adj, start, n):
         for v in adj[u]:
             key = (min(u, v), max(u, v))
             edge_count[key] = edge_count.get(key, 0) + 1
+    
+    adj_copy = {u: list(adj[u]) for u in adj}
+    
     while stack:
         u = stack[-1]
         found = False
-        for v in adj[u]:
+        for v in list(adj_copy[u]):
             key = (min(u, v), max(u, v))
             if edge_count.get(key, 0) > 0:
                 edge_count[key] -= 1
-                adj[u].remove(v)
-                adj[v].remove(u)
+                adj_copy[u].remove(v)
+                adj_copy[v].remove(u)
                 stack.append(v)
                 found = True
                 break

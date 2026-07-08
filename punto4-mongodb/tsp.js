@@ -124,14 +124,15 @@ function heldKarp() {
   var mask = fullMask;
   var curr = lastCity;
   while (curr !== -1) {
-    route.unshift(cityIds[curr]);
+    route.push(curr);
     var prev = parent[mask][curr];
     mask = mask ^ (1 << curr);
     curr = prev;
   }
-  route.unshift(cityIds[0]);
+  route.reverse();
 
-  return {cost: minCost, route: route};
+  var routeIds = route.map(function(idx) { return cityIds[idx]; });
+  return {cost: minCost, route: routeIds};
 }
 
 print("=== TSP " + N + " Ciudades ===");

@@ -76,39 +76,48 @@ def held_karp(
     INF = float("inf")
     full_mask = (1 << n) - 1
 
-    dp = {}
-    parent = {}
+    dp = [[INF] * n for _ in range(1 << n)]
+    parent = [[-1] * n for _ in range(1 << n)]
+    dp[1][0] = 0
 
-    def solve(mask, pos):
-        if mask == full_mask:
-            return dist[pos][0]
-        key = (mask, pos)
-        if key in dp:
-            return dp[key]
-        best = INF
-        best_next = -1
-        for nxt in range(n):
-            if not (mask & (1 << nxt)):
-                cost = dist[pos][nxt] + solve(mask | (1 << nxt), nxt)
-                if cost < best:
-                    best = cost
-                    best_next = nxt
-        dp[key] = best
-        parent[key] = best_next
-        return best
+    for mask in range(1, 1 << n):
+        if not (mask & 1):
+            continue
+        for u in range(n):
+            if not (mask & (1 << u)):
+                continue
+            if dp[mask][u] == INF:
+                continue
+            for v in range(n):
+                if mask & (1 << v):
+                    continue
+                new_mask = mask | (1 << v)
+                new_cost = dp[mask][u] + dist[u][v]
+                if new_cost < dp[new_mask][v]:
+                    dp[new_mask][v] = new_cost
+                    parent[new_mask][v] = u
 
-    min_cost = solve(1, 0)
+    best_cost = INF
+    last_city = -1
+    for u in range(1, n):
+        cost = dp[full_mask][u] + dist[u][0]
+        if cost < best_cost:
+            best_cost = cost
+            last_city = u
 
-    route = [0]
-    mask = 1
-    pos = 0
-    for _ in range(n - 1):
-        nxt = parent.get((mask, pos), -1)
-        if nxt == -1:
-            break
-        route.append(nxt)
-        mask |= (1 << nxt)
-        pos = nxt
+    if best_cost == INF:
+        return mgp.Record(distancia_total=-1, ruta=[])
+
+    route = []
+    mask = full_mask
+    curr = last_city
+    while curr != -1:
+        route.append(curr)
+        prev = parent[mask][curr]
+        mask = mask ^ (1 << curr)
+        curr = prev
+    route.reverse()
+    route.append(0)
 
     route_names = [cities[city_ids[i]].properties["nombre"] for i in route]
-    return mgp.Record(distancia_total=int(min_cost), ruta=route_names)
+    return mgp.Record(distancia_total=int(best_cost), ruta=route_names)

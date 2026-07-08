@@ -17,14 +17,22 @@ def main():
         data = json.load(f)
 
     city_ids = data["subsets"][str(n)]
+    start_id = city_ids[0]
+    rest_ids = city_ids[1:]
 
     lines = []
 
-    for i, cid in enumerate(city_ids):
-        lines.append(f"MATCH (n{i}:Ciudad {{id: {cid}}})")
+    lines.append(f"MATCH (n0:Ciudad {{id: {start_id}}})")
+    for i in range(1, n):
+        lines.append(f"MATCH (n{i}:Ciudad)")
 
-    pairs = [f"n{i} <> n{j}" for i, j in combinations(range(n), 2)]
-    lines.append("WHERE " + " AND ".join(pairs))
+    where_parts = []
+    for i in range(1, n):
+        where_parts.append(f"n{i}.id IN {rest_ids}")
+    for i in range(n):
+        for j in range(i + 1, n):
+            where_parts.append(f"n{i} <> n{j}")
+    lines.append("WHERE " + " AND ".join(where_parts))
 
     route_parts = []
     for i in range(n):

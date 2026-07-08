@@ -1,3 +1,5 @@
+MATCH (n) DETACH DELETE n;
+
 MERGE (c0:Ciudad {id: 0}) SET c0.nombre = 'Bogotá'
 MERGE (c1:Ciudad {id: 1}) SET c1.nombre = 'Medellín'
 MERGE (c2:Ciudad {id: 2}) SET c2.nombre = 'Cali'
