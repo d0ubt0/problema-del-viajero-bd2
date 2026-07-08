@@ -1,0 +1,6 @@
+services:
+  tsp-optimo:
+    build:
+      context: ..
+      dockerfile: punto3-python-optimo/Dockerfile
+    container_name: tsp-python-optimo

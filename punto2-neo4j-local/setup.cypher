@@ -1,0 +1,211 @@
+MERGE (c0:Ciudad {id: 0}) SET c0.nombre = 'Bogotá'
+MERGE (c1:Ciudad {id: 1}) SET c1.nombre = 'Medellín'
+MERGE (c2:Ciudad {id: 2}) SET c2.nombre = 'Cali'
+MERGE (c3:Ciudad {id: 3}) SET c3.nombre = 'Barranquilla'
+MERGE (c4:Ciudad {id: 4}) SET c4.nombre = 'Cartagena'
+MERGE (c5:Ciudad {id: 5}) SET c5.nombre = 'Bucaramanga'
+MERGE (c6:Ciudad {id: 6}) SET c6.nombre = 'Pereira'
+MERGE (c7:Ciudad {id: 7}) SET c7.nombre = 'Manizales'
+MERGE (c8:Ciudad {id: 8}) SET c8.nombre = 'Santa Marta'
+MERGE (c9:Ciudad {id: 9}) SET c9.nombre = 'Cúcuta'
+MERGE (c10:Ciudad {id: 10}) SET c10.nombre = 'Ibagué'
+MERGE (c11:Ciudad {id: 11}) SET c11.nombre = 'Villavicencio'
+MERGE (c12:Ciudad {id: 12}) SET c12.nombre = 'Pasto'
+MERGE (c13:Ciudad {id: 13}) SET c13.nombre = 'Neiva'
+MERGE (c14:Ciudad {id: 14}) SET c14.nombre = 'Armenia'
+MERGE (c15:Ciudad {id: 15}) SET c15.nombre = 'Montería'
+MERGE (c16:Ciudad {id: 16}) SET c16.nombre = 'Tunja'
+MERGE (c17:Ciudad {id: 17}) SET c17.nombre = 'Popayán'
+MERGE (c18:Ciudad {id: 18}) SET c18.nombre = 'Sincelejo'
+MERGE (c19:Ciudad {id: 19}) SET c19.nombre = 'Valledupar';
+
+MATCH (c0:Ciudad {id: 0}), (c1:Ciudad {id: 1}) MERGE (c0)-[:RUTA {distancia: 411}]->(c1) MERGE (c1)-[:RUTA {distancia: 411}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c2:Ciudad {id: 2}) MERGE (c0)-[:RUTA {distancia: 486}]->(c2) MERGE (c2)-[:RUTA {distancia: 486}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c3:Ciudad {id: 3}) MERGE (c0)-[:RUTA {distancia: 984}]->(c3) MERGE (c3)-[:RUTA {distancia: 984}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c4:Ciudad {id: 4}) MERGE (c0)-[:RUTA {distancia: 1061}]->(c4) MERGE (c4)-[:RUTA {distancia: 1061}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c5:Ciudad {id: 5}) MERGE (c0)-[:RUTA {distancia: 397}]->(c5) MERGE (c5)-[:RUTA {distancia: 397}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c6:Ciudad {id: 6}) MERGE (c0)-[:RUTA {distancia: 335}]->(c6) MERGE (c6)-[:RUTA {distancia: 335}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c7:Ciudad {id: 7}) MERGE (c0)-[:RUTA {distancia: 297}]->(c7) MERGE (c7)-[:RUTA {distancia: 297}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c8:Ciudad {id: 8}) MERGE (c0)-[:RUTA {distancia: 930}]->(c8) MERGE (c8)-[:RUTA {distancia: 930}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c9:Ciudad {id: 9}) MERGE (c0)-[:RUTA {distancia: 470}]->(c9) MERGE (c9)-[:RUTA {distancia: 470}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c10:Ciudad {id: 10}) MERGE (c0)-[:RUTA {distancia: 209}]->(c10) MERGE (c10)-[:RUTA {distancia: 209}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c11:Ciudad {id: 11}) MERGE (c0)-[:RUTA {distancia: 128}]->(c11) MERGE (c11)-[:RUTA {distancia: 128}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c12:Ciudad {id: 12}) MERGE (c0)-[:RUTA {distancia: 798}]->(c12) MERGE (c12)-[:RUTA {distancia: 798}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c13:Ciudad {id: 13}) MERGE (c0)-[:RUTA {distancia: 295}]->(c13) MERGE (c13)-[:RUTA {distancia: 295}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c14:Ciudad {id: 14}) MERGE (c0)-[:RUTA {distancia: 292}]->(c14) MERGE (c14)-[:RUTA {distancia: 292}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c15:Ciudad {id: 15}) MERGE (c0)-[:RUTA {distancia: 686}]->(c15) MERGE (c15)-[:RUTA {distancia: 686}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c16:Ciudad {id: 16}) MERGE (c0)-[:RUTA {distancia: 145}]->(c16) MERGE (c16)-[:RUTA {distancia: 145}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c17:Ciudad {id: 17}) MERGE (c0)-[:RUTA {distancia: 608}]->(c17) MERGE (c17)-[:RUTA {distancia: 608}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c18:Ciudad {id: 18}) MERGE (c0)-[:RUTA {distancia: 741}]->(c18) MERGE (c18)-[:RUTA {distancia: 741}]->(c0);
+MATCH (c0:Ciudad {id: 0}), (c19:Ciudad {id: 19}) MERGE (c0)-[:RUTA {distancia: 837}]->(c19) MERGE (c19)-[:RUTA {distancia: 837}]->(c0);
+MATCH (c1:Ciudad {id: 1}), (c2:Ciudad {id: 2}) MERGE (c1)-[:RUTA {distancia: 421}]->(c2) MERGE (c2)-[:RUTA {distancia: 421}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c3:Ciudad {id: 3}) MERGE (c1)-[:RUTA {distancia: 702}]->(c3) MERGE (c3)-[:RUTA {distancia: 702}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c4:Ciudad {id: 4}) MERGE (c1)-[:RUTA {distancia: 741}]->(c4) MERGE (c4)-[:RUTA {distancia: 741}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c5:Ciudad {id: 5}) MERGE (c1)-[:RUTA {distancia: 599}]->(c5) MERGE (c5)-[:RUTA {distancia: 599}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c6:Ciudad {id: 6}) MERGE (c1)-[:RUTA {distancia: 218}]->(c6) MERGE (c6)-[:RUTA {distancia: 218}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c7:Ciudad {id: 7}) MERGE (c1)-[:RUTA {distancia: 260}]->(c7) MERGE (c7)-[:RUTA {distancia: 260}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c8:Ciudad {id: 8}) MERGE (c1)-[:RUTA {distancia: 756}]->(c8) MERGE (c8)-[:RUTA {distancia: 756}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c9:Ciudad {id: 9}) MERGE (c1)-[:RUTA {distancia: 580}]->(c9) MERGE (c9)-[:RUTA {distancia: 580}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c10:Ciudad {id: 10}) MERGE (c1)-[:RUTA {distancia: 307}]->(c10) MERGE (c10)-[:RUTA {distancia: 307}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c11:Ciudad {id: 11}) MERGE (c1)-[:RUTA {distancia: 398}]->(c11) MERGE (c11)-[:RUTA {distancia: 398}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c12:Ciudad {id: 12}) MERGE (c1)-[:RUTA {distancia: 838}]->(c12) MERGE (c12)-[:RUTA {distancia: 838}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c13:Ciudad {id: 13}) MERGE (c1)-[:RUTA {distancia: 614}]->(c13) MERGE (c13)-[:RUTA {distancia: 614}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c14:Ciudad {id: 14}) MERGE (c1)-[:RUTA {distancia: 218}]->(c14) MERGE (c14)-[:RUTA {distancia: 218}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c15:Ciudad {id: 15}) MERGE (c1)-[:RUTA {distancia: 413}]->(c15) MERGE (c15)-[:RUTA {distancia: 413}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c16:Ciudad {id: 16}) MERGE (c1)-[:RUTA {distancia: 509}]->(c16) MERGE (c16)-[:RUTA {distancia: 509}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c17:Ciudad {id: 17}) MERGE (c1)-[:RUTA {distancia: 573}]->(c17) MERGE (c17)-[:RUTA {distancia: 573}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c18:Ciudad {id: 18}) MERGE (c1)-[:RUTA {distancia: 538}]->(c18) MERGE (c18)-[:RUTA {distancia: 538}]->(c1);
+MATCH (c1:Ciudad {id: 1}), (c19:Ciudad {id: 19}) MERGE (c1)-[:RUTA {distancia: 735}]->(c19) MERGE (c19)-[:RUTA {distancia: 735}]->(c1);
+MATCH (c2:Ciudad {id: 2}), (c3:Ciudad {id: 3}) MERGE (c2)-[:RUTA {distancia: 1098}]->(c3) MERGE (c3)-[:RUTA {distancia: 1098}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c4:Ciudad {id: 4}) MERGE (c2)-[:RUTA {distancia: 1145}]->(c4) MERGE (c4)-[:RUTA {distancia: 1145}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c5:Ciudad {id: 5}) MERGE (c2)-[:RUTA {distancia: 893}]->(c5) MERGE (c5)-[:RUTA {distancia: 893}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c6:Ciudad {id: 6}) MERGE (c2)-[:RUTA {distancia: 249}]->(c6) MERGE (c6)-[:RUTA {distancia: 249}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c7:Ciudad {id: 7}) MERGE (c2)-[:RUTA {distancia: 291}]->(c7) MERGE (c7)-[:RUTA {distancia: 291}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c8:Ciudad {id: 8}) MERGE (c2)-[:RUTA {distancia: 1152}]->(c8) MERGE (c8)-[:RUTA {distancia: 1152}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c9:Ciudad {id: 9}) MERGE (c2)-[:RUTA {distancia: 876}]->(c9) MERGE (c9)-[:RUTA {distancia: 876}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c10:Ciudad {id: 10}) MERGE (c2)-[:RUTA {distancia: 312}]->(c10) MERGE (c10)-[:RUTA {distancia: 312}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c11:Ciudad {id: 11}) MERGE (c2)-[:RUTA {distancia: 507}]->(c11) MERGE (c11)-[:RUTA {distancia: 507}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c12:Ciudad {id: 12}) MERGE (c2)-[:RUTA {distancia: 515}]->(c12) MERGE (c12)-[:RUTA {distancia: 515}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c13:Ciudad {id: 13}) MERGE (c2)-[:RUTA {distancia: 415}]->(c13) MERGE (c13)-[:RUTA {distancia: 415}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c14:Ciudad {id: 14}) MERGE (c2)-[:RUTA {distancia: 230}]->(c14) MERGE (c14)-[:RUTA {distancia: 230}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c15:Ciudad {id: 15}) MERGE (c2)-[:RUTA {distancia: 740}]->(c15) MERGE (c15)-[:RUTA {distancia: 740}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c16:Ciudad {id: 16}) MERGE (c2)-[:RUTA {distancia: 624}]->(c16) MERGE (c16)-[:RUTA {distancia: 624}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c17:Ciudad {id: 17}) MERGE (c2)-[:RUTA {distancia: 141}]->(c17) MERGE (c17)-[:RUTA {distancia: 141}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c18:Ciudad {id: 18}) MERGE (c2)-[:RUTA {distancia: 879}]->(c18) MERGE (c18)-[:RUTA {distancia: 879}]->(c2);
+MATCH (c2:Ciudad {id: 2}), (c19:Ciudad {id: 19}) MERGE (c2)-[:RUTA {distancia: 1089}]->(c19) MERGE (c19)-[:RUTA {distancia: 1089}]->(c2);
+MATCH (c3:Ciudad {id: 3}), (c4:Ciudad {id: 4}) MERGE (c3)-[:RUTA {distancia: 102}]->(c4) MERGE (c4)-[:RUTA {distancia: 102}]->(c3);
+MATCH (c3:Ciudad {id: 3}), (c5:Ciudad {id: 5}) MERGE (c3)-[:RUTA {distancia: 695}]->(c5) MERGE (c5)-[:RUTA {distancia: 695}]->(c3);
+MATCH (c3:Ciudad {id: 3}), (c6:Ciudad {id: 6}) MERGE (c3)-[:RUTA {distancia: 775}]->(c6) MERGE (c6)-[:RUTA {distancia: 775}]->(c3);
+MATCH (c3:Ciudad {id: 3}), (c7:Ciudad {id: 7}) MERGE (c3)-[:RUTA {distancia: 817}]->(c7) MERGE (c7)-[:RUTA {distancia: 817}]->(c3);
+MATCH (c3:Ciudad {id: 3}), (c8:Ciudad {id: 8}) MERGE (c3)-[:RUTA {distancia: 172}]->(c8) MERGE (c8)-[:RUTA {distancia: 172}]->(c3);
+MATCH (c3:Ciudad {id: 3}), (c9:Ciudad {id: 9}) MERGE (c3)-[:RUTA {distancia: 644}]->(c9) MERGE (c9)-[:RUTA {distancia: 644}]->(c3);
+MATCH (c3:Ciudad {id: 3}), (c10:Ciudad {id: 10}) MERGE (c3)-[:RUTA {distancia: 876}]->(c10) MERGE (c10)-[:RUTA {distancia: 876}]->(c3);
+MATCH (c3:Ciudad {id: 3}), (c11:Ciudad {id: 11}) MERGE (c3)-[:RUTA {distancia: 1012}]->(c11) MERGE (c11)-[:RUTA {distancia: 1012}]->(c3);
+MATCH (c3:Ciudad {id: 3}), (c12:Ciudad {id: 12}) MERGE (c3)-[:RUTA {distancia: 1613}]->(c12) MERGE (c12)-[:RUTA {distancia: 1613}]->(c3);
+MATCH (c3:Ciudad {id: 3}), (c13:Ciudad {id: 13}) MERGE (c3)-[:RUTA {distancia: 1164}]->(c13) MERGE (c13)-[:RUTA {distancia: 1164}]->(c3);
+MATCH (c3:Ciudad {id: 3}), (c14:Ciudad {id: 14}) MERGE (c3)-[:RUTA {distancia: 756}]->(c14) MERGE (c14)-[:RUTA {distancia: 756}]->(c3);
+MATCH (c3:Ciudad {id: 3}), (c15:Ciudad {id: 15}) MERGE (c3)-[:RUTA {distancia: 301}]->(c15) MERGE (c15)-[:RUTA {distancia: 301}]->(c3);
+MATCH (c3:Ciudad {id: 3}), (c16:Ciudad {id: 16}) MERGE (c3)-[:RUTA {distancia: 854}]->(c16) MERGE (c16)-[:RUTA {distancia: 854}]->(c3);
+MATCH (c3:Ciudad {id: 3}), (c17:Ciudad {id: 17}) MERGE (c3)-[:RUTA {distancia: 1234}]->(c17) MERGE (c17)-[:RUTA {distancia: 1234}]->(c3);
+MATCH (c3:Ciudad {id: 3}), (c18:Ciudad {id: 18}) MERGE (c3)-[:RUTA {distancia: 248}]->(c18) MERGE (c18)-[:RUTA {distancia: 248}]->(c3);
+MATCH (c3:Ciudad {id: 3}), (c19:Ciudad {id: 19}) MERGE (c3)-[:RUTA {distancia: 282}]->(c19) MERGE (c19)-[:RUTA {distancia: 282}]->(c3);
+MATCH (c4:Ciudad {id: 4}), (c5:Ciudad {id: 5}) MERGE (c4)-[:RUTA {distancia: 669}]->(c5) MERGE (c5)-[:RUTA {distancia: 669}]->(c4);
+MATCH (c4:Ciudad {id: 4}), (c6:Ciudad {id: 6}) MERGE (c4)-[:RUTA {distancia: 814}]->(c6) MERGE (c6)-[:RUTA {distancia: 814}]->(c4);
+MATCH (c4:Ciudad {id: 4}), (c7:Ciudad {id: 7}) MERGE (c4)-[:RUTA {distancia: 856}]->(c7) MERGE (c7)-[:RUTA {distancia: 856}]->(c4);
+MATCH (c4:Ciudad {id: 4}), (c8:Ciudad {id: 8}) MERGE (c4)-[:RUTA {distancia: 224}]->(c8) MERGE (c8)-[:RUTA {distancia: 224}]->(c4);
+MATCH (c4:Ciudad {id: 4}), (c9:Ciudad {id: 9}) MERGE (c4)-[:RUTA {distancia: 622}]->(c9) MERGE (c9)-[:RUTA {distancia: 622}]->(c4);
+MATCH (c4:Ciudad {id: 4}), (c10:Ciudad {id: 10}) MERGE (c4)-[:RUTA {distancia: 915}]->(c10) MERGE (c10)-[:RUTA {distancia: 915}]->(c4);
+MATCH (c4:Ciudad {id: 4}), (c11:Ciudad {id: 11}) MERGE (c4)-[:RUTA {distancia: 1051}]->(c11) MERGE (c11)-[:RUTA {distancia: 1051}]->(c4);
+MATCH (c4:Ciudad {id: 4}), (c12:Ciudad {id: 12}) MERGE (c4)-[:RUTA {distancia: 1652}]->(c12) MERGE (c12)-[:RUTA {distancia: 1652}]->(c4);
+MATCH (c4:Ciudad {id: 4}), (c13:Ciudad {id: 13}) MERGE (c4)-[:RUTA {distancia: 1203}]->(c13) MERGE (c13)-[:RUTA {distancia: 1203}]->(c4);
+MATCH (c4:Ciudad {id: 4}), (c14:Ciudad {id: 14}) MERGE (c4)-[:RUTA {distancia: 795}]->(c14) MERGE (c14)-[:RUTA {distancia: 795}]->(c4);
+MATCH (c4:Ciudad {id: 4}), (c15:Ciudad {id: 15}) MERGE (c4)-[:RUTA {distancia: 261}]->(c15) MERGE (c15)-[:RUTA {distancia: 261}]->(c4);
+MATCH (c4:Ciudad {id: 4}), (c16:Ciudad {id: 16}) MERGE (c4)-[:RUTA {distancia: 828}]->(c16) MERGE (c16)-[:RUTA {distancia: 828}]->(c4);
+MATCH (c4:Ciudad {id: 4}), (c17:Ciudad {id: 17}) MERGE (c4)-[:RUTA {distancia: 1273}]->(c17) MERGE (c17)-[:RUTA {distancia: 1273}]->(c4);
+MATCH (c4:Ciudad {id: 4}), (c18:Ciudad {id: 18}) MERGE (c4)-[:RUTA {distancia: 208}]->(c18) MERGE (c18)-[:RUTA {distancia: 208}]->(c4);
+MATCH (c4:Ciudad {id: 4}), (c19:Ciudad {id: 19}) MERGE (c4)-[:RUTA {distancia: 341}]->(c19) MERGE (c19)-[:RUTA {distancia: 341}]->(c4);
+MATCH (c5:Ciudad {id: 5}), (c6:Ciudad {id: 6}) MERGE (c5)-[:RUTA {distancia: 600}]->(c6) MERGE (c6)-[:RUTA {distancia: 600}]->(c5);
+MATCH (c5:Ciudad {id: 5}), (c7:Ciudad {id: 7}) MERGE (c5)-[:RUTA {distancia: 562}]->(c7) MERGE (c7)-[:RUTA {distancia: 562}]->(c5);
+MATCH (c5:Ciudad {id: 5}), (c8:Ciudad {id: 8}) MERGE (c5)-[:RUTA {distancia: 580}]->(c8) MERGE (c8)-[:RUTA {distancia: 580}]->(c5);
+MATCH (c5:Ciudad {id: 5}), (c9:Ciudad {id: 9}) MERGE (c5)-[:RUTA {distancia: 195}]->(c9) MERGE (c9)-[:RUTA {distancia: 195}]->(c5);
+MATCH (c5:Ciudad {id: 5}), (c10:Ciudad {id: 10}) MERGE (c5)-[:RUTA {distancia: 365}]->(c10) MERGE (c10)-[:RUTA {distancia: 365}]->(c5);
+MATCH (c5:Ciudad {id: 5}), (c11:Ciudad {id: 11}) MERGE (c5)-[:RUTA {distancia: 430}]->(c11) MERGE (c11)-[:RUTA {distancia: 430}]->(c5);
+MATCH (c5:Ciudad {id: 5}), (c12:Ciudad {id: 12}) MERGE (c5)-[:RUTA {distancia: 1092}]->(c12) MERGE (c12)-[:RUTA {distancia: 1092}]->(c5);
+MATCH (c5:Ciudad {id: 5}), (c13:Ciudad {id: 13}) MERGE (c5)-[:RUTA {distancia: 660}]->(c13) MERGE (c13)-[:RUTA {distancia: 660}]->(c5);
+MATCH (c5:Ciudad {id: 5}), (c14:Ciudad {id: 14}) MERGE (c5)-[:RUTA {distancia: 581}]->(c14) MERGE (c14)-[:RUTA {distancia: 581}]->(c5);
+MATCH (c5:Ciudad {id: 5}), (c15:Ciudad {id: 15}) MERGE (c5)-[:RUTA {distancia: 510}]->(c15) MERGE (c15)-[:RUTA {distancia: 510}]->(c5);
+MATCH (c5:Ciudad {id: 5}), (c16:Ciudad {id: 16}) MERGE (c5)-[:RUTA {distancia: 252}]->(c16) MERGE (c16)-[:RUTA {distancia: 252}]->(c5);
+MATCH (c5:Ciudad {id: 5}), (c17:Ciudad {id: 17}) MERGE (c5)-[:RUTA {distancia: 867}]->(c17) MERGE (c17)-[:RUTA {distancia: 867}]->(c5);
+MATCH (c5:Ciudad {id: 5}), (c18:Ciudad {id: 18}) MERGE (c5)-[:RUTA {distancia: 430}]->(c18) MERGE (c18)-[:RUTA {distancia: 430}]->(c5);
+MATCH (c5:Ciudad {id: 5}), (c19:Ciudad {id: 19}) MERGE (c5)-[:RUTA {distancia: 433}]->(c19) MERGE (c19)-[:RUTA {distancia: 433}]->(c5);
+MATCH (c6:Ciudad {id: 6}), (c7:Ciudad {id: 7}) MERGE (c6)-[:RUTA {distancia: 72}]->(c7) MERGE (c7)-[:RUTA {distancia: 72}]->(c6);
+MATCH (c6:Ciudad {id: 6}), (c8:Ciudad {id: 8}) MERGE (c6)-[:RUTA {distancia: 810}]->(c8) MERGE (c8)-[:RUTA {distancia: 810}]->(c6);
+MATCH (c6:Ciudad {id: 6}), (c9:Ciudad {id: 9}) MERGE (c6)-[:RUTA {distancia: 561}]->(c9) MERGE (c9)-[:RUTA {distancia: 561}]->(c6);
+MATCH (c6:Ciudad {id: 6}), (c10:Ciudad {id: 10}) MERGE (c6)-[:RUTA {distancia: 113}]->(c10) MERGE (c10)-[:RUTA {distancia: 113}]->(c6);
+MATCH (c6:Ciudad {id: 6}), (c11:Ciudad {id: 11}) MERGE (c6)-[:RUTA {distancia: 380}]->(c11) MERGE (c11)-[:RUTA {distancia: 380}]->(c6);
+MATCH (c6:Ciudad {id: 6}), (c12:Ciudad {id: 12}) MERGE (c6)-[:RUTA {distancia: 670}]->(c12) MERGE (c12)-[:RUTA {distancia: 670}]->(c6);
+MATCH (c6:Ciudad {id: 6}), (c13:Ciudad {id: 13}) MERGE (c6)-[:RUTA {distancia: 446}]->(c13) MERGE (c13)-[:RUTA {distancia: 446}]->(c6);
+MATCH (c6:Ciudad {id: 6}), (c14:Ciudad {id: 14}) MERGE (c6)-[:RUTA {distancia: 50}]->(c14) MERGE (c14)-[:RUTA {distancia: 50}]->(c6);
+MATCH (c6:Ciudad {id: 6}), (c15:Ciudad {id: 15}) MERGE (c6)-[:RUTA {distancia: 486}]->(c15) MERGE (c15)-[:RUTA {distancia: 486}]->(c6);
+MATCH (c6:Ciudad {id: 6}), (c16:Ciudad {id: 16}) MERGE (c6)-[:RUTA {distancia: 450}]->(c16) MERGE (c16)-[:RUTA {distancia: 450}]->(c6);
+MATCH (c6:Ciudad {id: 6}), (c17:Ciudad {id: 17}) MERGE (c6)-[:RUTA {distancia: 405}]->(c17) MERGE (c17)-[:RUTA {distancia: 405}]->(c6);
+MATCH (c6:Ciudad {id: 6}), (c18:Ciudad {id: 18}) MERGE (c6)-[:RUTA {distancia: 611}]->(c18) MERGE (c18)-[:RUTA {distancia: 611}]->(c6);
+MATCH (c6:Ciudad {id: 6}), (c19:Ciudad {id: 19}) MERGE (c6)-[:RUTA {distancia: 789}]->(c19) MERGE (c19)-[:RUTA {distancia: 789}]->(c6);
+MATCH (c7:Ciudad {id: 7}), (c8:Ciudad {id: 8}) MERGE (c7)-[:RUTA {distancia: 852}]->(c8) MERGE (c8)-[:RUTA {distancia: 852}]->(c7);
+MATCH (c7:Ciudad {id: 7}), (c9:Ciudad {id: 9}) MERGE (c7)-[:RUTA {distancia: 523}]->(c9) MERGE (c9)-[:RUTA {distancia: 523}]->(c7);
+MATCH (c7:Ciudad {id: 7}), (c10:Ciudad {id: 10}) MERGE (c7)-[:RUTA {distancia: 143}]->(c10) MERGE (c10)-[:RUTA {distancia: 143}]->(c7);
+MATCH (c7:Ciudad {id: 7}), (c11:Ciudad {id: 11}) MERGE (c7)-[:RUTA {distancia: 342}]->(c11) MERGE (c11)-[:RUTA {distancia: 342}]->(c7);
+MATCH (c7:Ciudad {id: 7}), (c12:Ciudad {id: 12}) MERGE (c7)-[:RUTA {distancia: 712}]->(c12) MERGE (c12)-[:RUTA {distancia: 712}]->(c7);
+MATCH (c7:Ciudad {id: 7}), (c13:Ciudad {id: 13}) MERGE (c7)-[:RUTA {distancia: 488}]->(c13) MERGE (c13)-[:RUTA {distancia: 488}]->(c7);
+MATCH (c7:Ciudad {id: 7}), (c14:Ciudad {id: 14}) MERGE (c7)-[:RUTA {distancia: 72}]->(c14) MERGE (c14)-[:RUTA {distancia: 72}]->(c7);
+MATCH (c7:Ciudad {id: 7}), (c15:Ciudad {id: 15}) MERGE (c7)-[:RUTA {distancia: 528}]->(c15) MERGE (c15)-[:RUTA {distancia: 528}]->(c7);
+MATCH (c7:Ciudad {id: 7}), (c16:Ciudad {id: 16}) MERGE (c7)-[:RUTA {distancia: 412}]->(c16) MERGE (c16)-[:RUTA {distancia: 412}]->(c7);
+MATCH (c7:Ciudad {id: 7}), (c17:Ciudad {id: 17}) MERGE (c7)-[:RUTA {distancia: 447}]->(c17) MERGE (c17)-[:RUTA {distancia: 447}]->(c7);
+MATCH (c7:Ciudad {id: 7}), (c18:Ciudad {id: 18}) MERGE (c7)-[:RUTA {distancia: 653}]->(c18) MERGE (c18)-[:RUTA {distancia: 653}]->(c7);
+MATCH (c7:Ciudad {id: 7}), (c19:Ciudad {id: 19}) MERGE (c7)-[:RUTA {distancia: 831}]->(c19) MERGE (c19)-[:RUTA {distancia: 831}]->(c7);
+MATCH (c8:Ciudad {id: 8}), (c9:Ciudad {id: 9}) MERGE (c8)-[:RUTA {distancia: 490}]->(c9) MERGE (c9)-[:RUTA {distancia: 490}]->(c8);
+MATCH (c8:Ciudad {id: 8}), (c10:Ciudad {id: 10}) MERGE (c8)-[:RUTA {distancia: 822}]->(c10) MERGE (c10)-[:RUTA {distancia: 822}]->(c8);
+MATCH (c8:Ciudad {id: 8}), (c11:Ciudad {id: 11}) MERGE (c8)-[:RUTA {distancia: 958}]->(c11) MERGE (c11)-[:RUTA {distancia: 958}]->(c8);
+MATCH (c8:Ciudad {id: 8}), (c12:Ciudad {id: 12}) MERGE (c8)-[:RUTA {distancia: 1559}]->(c12) MERGE (c12)-[:RUTA {distancia: 1559}]->(c8);
+MATCH (c8:Ciudad {id: 8}), (c13:Ciudad {id: 13}) MERGE (c8)-[:RUTA {distancia: 1110}]->(c13) MERGE (c13)-[:RUTA {distancia: 1110}]->(c8);
+MATCH (c8:Ciudad {id: 8}), (c14:Ciudad {id: 14}) MERGE (c8)-[:RUTA {distancia: 802}]->(c14) MERGE (c14)-[:RUTA {distancia: 802}]->(c8);
+MATCH (c8:Ciudad {id: 8}), (c15:Ciudad {id: 15}) MERGE (c8)-[:RUTA {distancia: 355}]->(c15) MERGE (c15)-[:RUTA {distancia: 355}]->(c8);
+MATCH (c8:Ciudad {id: 8}), (c16:Ciudad {id: 16}) MERGE (c8)-[:RUTA {distancia: 780}]->(c16) MERGE (c16)-[:RUTA {distancia: 780}]->(c8);
+MATCH (c8:Ciudad {id: 8}), (c17:Ciudad {id: 17}) MERGE (c8)-[:RUTA {distancia: 1180}]->(c17) MERGE (c17)-[:RUTA {distancia: 1180}]->(c8);
+MATCH (c8:Ciudad {id: 8}), (c18:Ciudad {id: 18}) MERGE (c8)-[:RUTA {distancia: 294}]->(c18) MERGE (c18)-[:RUTA {distancia: 294}]->(c8);
+MATCH (c8:Ciudad {id: 8}), (c19:Ciudad {id: 19}) MERGE (c8)-[:RUTA {distancia: 268}]->(c19) MERGE (c19)-[:RUTA {distancia: 268}]->(c8);
+MATCH (c9:Ciudad {id: 9}), (c10:Ciudad {id: 10}) MERGE (c9)-[:RUTA {distancia: 440}]->(c10) MERGE (c10)-[:RUTA {distancia: 440}]->(c9);
+MATCH (c9:Ciudad {id: 9}), (c11:Ciudad {id: 11}) MERGE (c9)-[:RUTA {distancia: 505}]->(c11) MERGE (c11)-[:RUTA {distancia: 505}]->(c9);
+MATCH (c9:Ciudad {id: 9}), (c12:Ciudad {id: 12}) MERGE (c9)-[:RUTA {distancia: 1065}]->(c12) MERGE (c12)-[:RUTA {distancia: 1065}]->(c9);
+MATCH (c9:Ciudad {id: 9}), (c13:Ciudad {id: 13}) MERGE (c9)-[:RUTA {distancia: 735}]->(c13) MERGE (c13)-[:RUTA {distancia: 735}]->(c9);
+MATCH (c9:Ciudad {id: 9}), (c14:Ciudad {id: 14}) MERGE (c9)-[:RUTA {distancia: 542}]->(c14) MERGE (c14)-[:RUTA {distancia: 542}]->(c9);
+MATCH (c9:Ciudad {id: 9}), (c15:Ciudad {id: 15}) MERGE (c9)-[:RUTA {distancia: 543}]->(c15) MERGE (c15)-[:RUTA {distancia: 543}]->(c9);
+MATCH (c9:Ciudad {id: 9}), (c16:Ciudad {id: 16}) MERGE (c9)-[:RUTA {distancia: 327}]->(c16) MERGE (c16)-[:RUTA {distancia: 327}]->(c9);
+MATCH (c9:Ciudad {id: 9}), (c17:Ciudad {id: 17}) MERGE (c9)-[:RUTA {distancia: 840}]->(c17) MERGE (c17)-[:RUTA {distancia: 840}]->(c9);
+MATCH (c9:Ciudad {id: 9}), (c18:Ciudad {id: 18}) MERGE (c9)-[:RUTA {distancia: 463}]->(c18) MERGE (c18)-[:RUTA {distancia: 463}]->(c9);
+MATCH (c9:Ciudad {id: 9}), (c19:Ciudad {id: 19}) MERGE (c9)-[:RUTA {distancia: 238}]->(c19) MERGE (c19)-[:RUTA {distancia: 238}]->(c9);
+MATCH (c10:Ciudad {id: 10}), (c11:Ciudad {id: 11}) MERGE (c10)-[:RUTA {distancia: 237}]->(c11) MERGE (c11)-[:RUTA {distancia: 237}]->(c10);
+MATCH (c10:Ciudad {id: 10}), (c12:Ciudad {id: 12}) MERGE (c10)-[:RUTA {distancia: 590}]->(c12) MERGE (c12)-[:RUTA {distancia: 590}]->(c10);
+MATCH (c10:Ciudad {id: 10}), (c13:Ciudad {id: 13}) MERGE (c10)-[:RUTA {distancia: 209}]->(c13) MERGE (c13)-[:RUTA {distancia: 209}]->(c10);
+MATCH (c10:Ciudad {id: 10}), (c14:Ciudad {id: 14}) MERGE (c10)-[:RUTA {distancia: 94}]->(c14) MERGE (c14)-[:RUTA {distancia: 94}]->(c10);
+MATCH (c10:Ciudad {id: 10}), (c15:Ciudad {id: 15}) MERGE (c10)-[:RUTA {distancia: 586}]->(c15) MERGE (c15)-[:RUTA {distancia: 586}]->(c10);
+MATCH (c10:Ciudad {id: 10}), (c16:Ciudad {id: 16}) MERGE (c10)-[:RUTA {distancia: 310}]->(c16) MERGE (c16)-[:RUTA {distancia: 310}]->(c10);
+MATCH (c10:Ciudad {id: 10}), (c17:Ciudad {id: 17}) MERGE (c10)-[:RUTA {distancia: 430}]->(c17) MERGE (c17)-[:RUTA {distancia: 430}]->(c10);
+MATCH (c10:Ciudad {id: 10}), (c18:Ciudad {id: 18}) MERGE (c10)-[:RUTA {distancia: 711}]->(c18) MERGE (c18)-[:RUTA {distancia: 711}]->(c10);
+MATCH (c10:Ciudad {id: 10}), (c19:Ciudad {id: 19}) MERGE (c10)-[:RUTA {distancia: 813}]->(c19) MERGE (c19)-[:RUTA {distancia: 813}]->(c10);
+MATCH (c11:Ciudad {id: 11}), (c12:Ciudad {id: 12}) MERGE (c11)-[:RUTA {distancia: 826}]->(c12) MERGE (c12)-[:RUTA {distancia: 826}]->(c11);
+MATCH (c11:Ciudad {id: 11}), (c13:Ciudad {id: 13}) MERGE (c11)-[:RUTA {distancia: 380}]->(c13) MERGE (c13)-[:RUTA {distancia: 380}]->(c11);
+MATCH (c11:Ciudad {id: 11}), (c14:Ciudad {id: 14}) MERGE (c11)-[:RUTA {distancia: 374}]->(c14) MERGE (c14)-[:RUTA {distancia: 374}]->(c11);
+MATCH (c11:Ciudad {id: 11}), (c15:Ciudad {id: 15}) MERGE (c11)-[:RUTA {distancia: 714}]->(c15) MERGE (c15)-[:RUTA {distancia: 714}]->(c11);
+MATCH (c11:Ciudad {id: 11}), (c16:Ciudad {id: 16}) MERGE (c11)-[:RUTA {distancia: 223}]->(c16) MERGE (c16)-[:RUTA {distancia: 223}]->(c11);
+MATCH (c11:Ciudad {id: 11}), (c17:Ciudad {id: 17}) MERGE (c11)-[:RUTA {distancia: 636}]->(c17) MERGE (c17)-[:RUTA {distancia: 636}]->(c11);
+MATCH (c11:Ciudad {id: 11}), (c18:Ciudad {id: 18}) MERGE (c11)-[:RUTA {distancia: 769}]->(c18) MERGE (c18)-[:RUTA {distancia: 769}]->(c11);
+MATCH (c11:Ciudad {id: 11}), (c19:Ciudad {id: 19}) MERGE (c11)-[:RUTA {distancia: 865}]->(c19) MERGE (c19)-[:RUTA {distancia: 865}]->(c11);
+MATCH (c12:Ciudad {id: 12}), (c13:Ciudad {id: 13}) MERGE (c12)-[:RUTA {distancia: 685}]->(c13) MERGE (c13)-[:RUTA {distancia: 685}]->(c12);
+MATCH (c12:Ciudad {id: 12}), (c14:Ciudad {id: 14}) MERGE (c12)-[:RUTA {distancia: 651}]->(c14) MERGE (c14)-[:RUTA {distancia: 651}]->(c12);
+MATCH (c12:Ciudad {id: 12}), (c15:Ciudad {id: 15}) MERGE (c12)-[:RUTA {distancia: 1255}]->(c15) MERGE (c15)-[:RUTA {distancia: 1255}]->(c12);
+MATCH (c12:Ciudad {id: 12}), (c16:Ciudad {id: 16}) MERGE (c12)-[:RUTA {distancia: 933}]->(c16) MERGE (c16)-[:RUTA {distancia: 933}]->(c12);
+MATCH (c12:Ciudad {id: 12}), (c17:Ciudad {id: 17}) MERGE (c12)-[:RUTA {distancia: 374}]->(c17) MERGE (c17)-[:RUTA {distancia: 374}]->(c12);
+MATCH (c12:Ciudad {id: 12}), (c18:Ciudad {id: 18}) MERGE (c12)-[:RUTA {distancia: 1394}]->(c18) MERGE (c18)-[:RUTA {distancia: 1394}]->(c12);
+MATCH (c12:Ciudad {id: 12}), (c19:Ciudad {id: 19}) MERGE (c12)-[:RUTA {distancia: 1604}]->(c19) MERGE (c19)-[:RUTA {distancia: 1604}]->(c12);
+MATCH (c13:Ciudad {id: 13}), (c14:Ciudad {id: 14}) MERGE (c13)-[:RUTA {distancia: 427}]->(c14) MERGE (c14)-[:RUTA {distancia: 427}]->(c13);
+MATCH (c13:Ciudad {id: 13}), (c15:Ciudad {id: 15}) MERGE (c13)-[:RUTA {distancia: 874}]->(c15) MERGE (c15)-[:RUTA {distancia: 874}]->(c13);
+MATCH (c13:Ciudad {id: 13}), (c16:Ciudad {id: 16}) MERGE (c13)-[:RUTA {distancia: 458}]->(c16) MERGE (c16)-[:RUTA {distancia: 458}]->(c13);
+MATCH (c13:Ciudad {id: 13}), (c17:Ciudad {id: 17}) MERGE (c13)-[:RUTA {distancia: 520}]->(c17) MERGE (c17)-[:RUTA {distancia: 520}]->(c13);
+MATCH (c13:Ciudad {id: 13}), (c18:Ciudad {id: 18}) MERGE (c13)-[:RUTA {distancia: 1000}]->(c18) MERGE (c18)-[:RUTA {distancia: 1000}]->(c13);
+MATCH (c13:Ciudad {id: 13}), (c19:Ciudad {id: 19}) MERGE (c13)-[:RUTA {distancia: 1101}]->(c19) MERGE (c19)-[:RUTA {distancia: 1101}]->(c13);
+MATCH (c14:Ciudad {id: 14}), (c15:Ciudad {id: 15}) MERGE (c14)-[:RUTA {distancia: 528}]->(c15) MERGE (c15)-[:RUTA {distancia: 528}]->(c14);
+MATCH (c14:Ciudad {id: 14}), (c16:Ciudad {id: 16}) MERGE (c14)-[:RUTA {distancia: 431}]->(c16) MERGE (c16)-[:RUTA {distancia: 431}]->(c14);
+MATCH (c14:Ciudad {id: 14}), (c17:Ciudad {id: 17}) MERGE (c14)-[:RUTA {distancia: 386}]->(c17) MERGE (c17)-[:RUTA {distancia: 386}]->(c14);
+MATCH (c14:Ciudad {id: 14}), (c18:Ciudad {id: 18}) MERGE (c14)-[:RUTA {distancia: 592}]->(c18) MERGE (c18)-[:RUTA {distancia: 592}]->(c14);
+MATCH (c14:Ciudad {id: 14}), (c19:Ciudad {id: 19}) MERGE (c14)-[:RUTA {distancia: 770}]->(c19) MERGE (c19)-[:RUTA {distancia: 770}]->(c14);
+MATCH (c15:Ciudad {id: 15}), (c16:Ciudad {id: 16}) MERGE (c15)-[:RUTA {distancia: 645}]->(c16) MERGE (c16)-[:RUTA {distancia: 645}]->(c15);
+MATCH (c15:Ciudad {id: 15}), (c17:Ciudad {id: 17}) MERGE (c15)-[:RUTA {distancia: 876}]->(c17) MERGE (c17)-[:RUTA {distancia: 876}]->(c15);
+MATCH (c15:Ciudad {id: 15}), (c18:Ciudad {id: 18}) MERGE (c15)-[:RUTA {distancia: 130}]->(c18) MERGE (c18)-[:RUTA {distancia: 130}]->(c15);
+MATCH (c15:Ciudad {id: 15}), (c19:Ciudad {id: 19}) MERGE (c15)-[:RUTA {distancia: 416}]->(c19) MERGE (c19)-[:RUTA {distancia: 416}]->(c15);
+MATCH (c16:Ciudad {id: 16}), (c17:Ciudad {id: 17}) MERGE (c16)-[:RUTA {distancia: 743}]->(c17) MERGE (c17)-[:RUTA {distancia: 743}]->(c16);
+MATCH (c16:Ciudad {id: 16}), (c18:Ciudad {id: 18}) MERGE (c16)-[:RUTA {distancia: 595}]->(c18) MERGE (c18)-[:RUTA {distancia: 595}]->(c16);
+MATCH (c16:Ciudad {id: 16}), (c19:Ciudad {id: 19}) MERGE (c16)-[:RUTA {distancia: 671}]->(c19) MERGE (c19)-[:RUTA {distancia: 671}]->(c16);
+MATCH (c17:Ciudad {id: 17}), (c18:Ciudad {id: 18}) MERGE (c17)-[:RUTA {distancia: 1015}]->(c18) MERGE (c18)-[:RUTA {distancia: 1015}]->(c17);
+MATCH (c17:Ciudad {id: 17}), (c19:Ciudad {id: 19}) MERGE (c17)-[:RUTA {distancia: 1225}]->(c19) MERGE (c19)-[:RUTA {distancia: 1225}]->(c17);
+MATCH (c18:Ciudad {id: 18}), (c19:Ciudad {id: 19}) MERGE (c18)-[:RUTA {distancia: 469}]->(c19) MERGE (c19)-[:RUTA {distancia: 469}]->(c18);

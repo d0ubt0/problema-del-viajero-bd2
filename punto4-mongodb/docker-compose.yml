@@ -1,0 +1,14 @@
+services:
+  mongodb:
+    build: .
+    container_name: tsp_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./setup.js:/docker-entrypoint-initdb.d/setup.js
+    environment:
+      MONGO_INITDB_DATABASE: tsp_colombia
+
+volumes:
+  mongo_data:

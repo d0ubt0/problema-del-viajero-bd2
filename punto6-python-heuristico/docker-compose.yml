@@ -1,0 +1,8 @@
+services:
+  tsp-heuristico:
+    build:
+      context: ..
+      dockerfile: punto6-python-heuristico/Dockerfile
+    container_name: tsp-heuristico
+    volumes:
+      - ../shared:/app/shared:ro
