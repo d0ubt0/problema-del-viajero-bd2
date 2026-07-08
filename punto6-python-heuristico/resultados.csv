@@ -1,0 +1,11 @@
+ciudades,tiempo_segundos,costo,ruta,estado,error
+4,0.2242,2593,"Cali -> Medellín -> Barranquilla -> Bogotá -> Cali",OK,""
+6,0.2142,2777,"Barranquilla -> Cartagena -> Bucaramanga -> Bogotá -> Cali -> Medellín -> Barranquilla",OK,""
+8,0.2100,2909,"Barranquilla -> Cartagena -> Bucaramanga -> Bogotá -> Manizales -> Pereira -> Cali -> Medellín -> Barranquilla",OK,""
+10,0.2106,3136,"Manizales -> Bogotá -> Bucaramanga -> Cúcuta -> Santa Marta -> Barranquilla -> Cartagena -> Medellín -> Cali -> Pereira -> Manizales",OK,""
+12,0.2195,3347,"Pereira -> Cali -> Medellín -> Cartagena -> Barranquilla -> Santa Marta -> Cúcuta -> Bucaramanga -> Bogotá -> Villavicencio -> Ibagué -> Manizales -> Pereira",OK,""
+14,0.2242,4448,"Neiva -> Ibagué -> Pasto -> Cali -> Manizales -> Pereira -> Medellín -> Cartagena -> Barranquilla -> Santa Marta -> Cúcuta -> Bucaramanga -> Villavicencio -> Bogotá -> Neiva",OK,""
+16,0.2370,4392,"Bucaramanga -> Villavicencio -> Bogotá -> Neiva -> Ibagué -> Pasto -> Cali -> Armenia -> Manizales -> Pereira -> Medellín -> Montería -> Cartagena -> Barranquilla -> Santa Marta -> Cúcuta -> Bucaramanga",OK,""
+18,0.2611,4396,"Villavicencio -> Ibagué -> Neiva -> Pasto -> Popayán -> Cali -> Armenia -> Manizales -> Pereira -> Medellín -> Montería -> Cartagena -> Barranquilla -> Santa Marta -> Cúcuta -> Bucaramanga -> Tunja -> Bogotá -> Villavicencio",OK,""
+20,0.3003,4489,"Armenia -> Manizales -> Pereira -> Medellín -> Montería -> Sincelejo -> Cartagena -> Barranquilla -> Santa Marta -> Valledupar -> Cúcuta -> Bucaramanga -> Tunja -> Bogotá -> Villavicencio -> Ibagué -> Neiva -> Pasto -> Popayán -> Cali -> Armenia",OK,""
+22,0.0211,-,"-",ERROR,"No hay subset para N=22"

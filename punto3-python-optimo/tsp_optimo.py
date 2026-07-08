@@ -102,7 +102,7 @@ def brute_force(dist, n):
 
 
 def run_benchmarks(dist_full, nombres, subsets):
-    sizes = [4, 6, 8, 10, 12, 14, 16, 18, 20]
+    sizes = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26]
     results = []
 
     print("=" * 100)
