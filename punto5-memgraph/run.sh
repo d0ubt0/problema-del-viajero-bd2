@@ -93,11 +93,14 @@ cleanup() {
 trap cleanup EXIT
 
 echo "[1/5] Levantando contenedor MemGraph..."
-docker compose -f "$SCRIPT_DIR/docker-compose.yml" up -d --build
+docker compose -f "$SCRIPT_DIR/docker-compose.yml" up -d --build || {
+    echo "ERROR: No se pudo levantar el contenedor MemGraph"
+    exit 1
+}
 
 echo "[2/5] Esperando que MemGraph este listo..."
 for i in $(seq 1 30); do
-    if docker exec "$CONTAINER_NAME" mgconsole --no-history -c "RETURN 1;" > /dev/null 2>&1; then
+    if echo "RETURN 1;" | docker exec -i "$CONTAINER_NAME" mgconsole --no-history > /dev/null 2>&1; then
         echo "MemGraph listo despues de $((i*2))s"
         break
     fi
@@ -108,9 +111,14 @@ for i in $(seq 1 30); do
     sleep 2
 done
 
-echo "[3/5] Cargando grafo (setup.cypher)..."
+echo "[3/5] Limpiando datos previos y cargando grafo..."
+docker exec -i "$CONTAINER_NAME" mgconsole --no-history < "$SCRIPT_DIR/cleanup.cypher"
 docker exec -i "$CONTAINER_NAME" mgconsole --no-history < "$SCRIPT_DIR/setup.cypher"
 echo "Grafo cargado."
+
+echo "[3.5/5] Cargando modulos MAGE..."
+echo "CALL mg.load_all();" | docker exec -i "$CONTAINER_NAME" mgconsole --no-history
+echo "Modulos MAGE cargados."
 
 # =========================================================================
 # Bateria 1: Cypher Brute Force
@@ -195,7 +203,7 @@ while [ "$STOP" = false ]; do
     MAGE_QUERY="CALL tsp_mage.brute_force([${CITY_IDS}]) YIELD distancia_total, ruta;"
 
     START_TIME=$(date +%s.%N)
-    RESULT=$(timeout "$TIMEOUT_SECS" docker exec "$CONTAINER_NAME" mgconsole --no-history -c "$MAGE_QUERY" 2>&1)
+    RESULT=$(echo "$MAGE_QUERY" | timeout "$TIMEOUT_SECS" docker exec -i "$CONTAINER_NAME" mgconsole --no-history 2>&1)
     RC=$?
     END_TIME=$(date +%s.%N)
     ELAPSED=$(awk "BEGIN {printf \"%.4f\", $END_TIME - $START_TIME}")
@@ -255,7 +263,7 @@ while [ "$STOP" = false ]; do
     MAGE_QUERY="CALL tsp_mage.held_karp([${CITY_IDS}]) YIELD distancia_total, ruta;"
 
     START_TIME=$(date +%s.%N)
-    RESULT=$(timeout "$TIMEOUT_SECS" docker exec "$CONTAINER_NAME" mgconsole --no-history -c "$MAGE_QUERY" 2>&1)
+    RESULT=$(echo "$MAGE_QUERY" | timeout "$TIMEOUT_SECS" docker exec -i "$CONTAINER_NAME" mgconsole --no-history 2>&1)
     RC=$?
     END_TIME=$(date +%s.%N)
     ELAPSED=$(awk "BEGIN {printf \"%.4f\", $END_TIME - $START_TIME}")

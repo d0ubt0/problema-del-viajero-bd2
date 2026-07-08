@@ -47,7 +47,7 @@ def main():
     lines.append(f"RETURN {dist_sum} AS distanciaTotal,")
     lines.append(f"       [{route_names}] AS ruta")
     lines.append("ORDER BY distanciaTotal ASC")
-    lines.append("LIMIT 1")
+    lines.append("LIMIT 1;")
 
     print("\n".join(lines))
 

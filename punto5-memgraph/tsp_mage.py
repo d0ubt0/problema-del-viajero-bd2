@@ -2,23 +2,27 @@ import mgp
 import itertools
 
 
+def _has_label(vertex, label_name):
+    return any(label == label_name for label in vertex.labels)
+
+
 @mgp.read_proc
 def brute_force(
     ctx: mgp.ProcCtx,
     city_ids: mgp.List[int]
 ) -> mgp.Record(distancia_total=int, ruta=mgp.List[str]):
     cities = {}
-    for node in ctx.graph.vertices:
-        if "Ciudad" in node.labels and node.properties.get("id") in city_ids:
-            cities[node.properties["id"]] = node
+    for vertex in ctx.graph.vertices:
+        if _has_label(vertex, "Ciudad") and vertex.properties.get("id") in city_ids:
+            cities[vertex.properties["id"]] = vertex
 
     if len(cities) != len(city_ids):
         return mgp.Record(distancia_total=-1, ruta=[])
 
     def get_dist(id1, id2):
-        node1 = cities[id1]
-        for edge in node1.out_edges:
-            if edge.type == "RUTA" and edge.to_node.properties.get("id") == id2:
+        v1 = cities[id1]
+        for edge in v1.out_edges:
+            if edge.to_vertex.properties.get("id") == id2:
                 return edge.properties.get("distancia", 999999)
         return 999999
 
@@ -50,9 +54,9 @@ def held_karp(
     city_ids: mgp.List[int]
 ) -> mgp.Record(distancia_total=int, ruta=mgp.List[str]):
     cities = {}
-    for node in ctx.graph.vertices:
-        if "Ciudad" in node.labels and node.properties.get("id") in city_ids:
-            cities[node.properties["id"]] = node
+    for vertex in ctx.graph.vertices:
+        if _has_label(vertex, "Ciudad") and vertex.properties.get("id") in city_ids:
+            cities[vertex.properties["id"]] = vertex
 
     if len(cities) != len(city_ids):
         return mgp.Record(distancia_total=-1, ruta=[])
@@ -61,9 +65,9 @@ def held_karp(
     idx = {cid: i for i, cid in enumerate(city_ids)}
 
     def get_dist(id1, id2):
-        node1 = cities[id1]
-        for edge in node1.out_edges:
-            if edge.type == "RUTA" and edge.to_node.properties.get("id") == id2:
+        v1 = cities[id1]
+        for edge in v1.out_edges:
+            if edge.to_vertex.properties.get("id") == id2:
                 return edge.properties.get("distancia", 999999)
         return 999999
 
